@@ -2,7 +2,9 @@ const processData = require('./process-data');
 
 class VendingMachine {
   constructor(data) {
-    this.data = processData(data);
+    this.productInventory = productInventory;
+    // these can be used anywhere within this class now
+    this.coinDrawer = coinDrawer;
   }
 
   querySlots(slot) {

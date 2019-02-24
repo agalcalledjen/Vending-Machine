@@ -81,7 +81,7 @@ describe('VendingMachine', () => {
 
     describe('when slot chosen does not exist', () => {
       it('should throw an error', () => {
-        expect(() => test.subject.querySlots('A4')).toThrow(
+        expect(() => test.subject.querySlots(A4)).toThrow(
           'Invalid Product Selection'
         );
       });
