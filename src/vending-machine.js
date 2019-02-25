@@ -1,3 +1,32 @@
+const coinDenominations = [
+  { name: 'toonie', value: 200 },
+  { name: 'loonie', value: 100 },
+  { name: 'quarter', value: 25 },
+  { name: 'dime', value: 10 },
+  { name: 'nickel', value: 5 }
+];
+
+const coinCount = {};
+
+const calCoinChange = remainingChange => {
+  remainingChange = remainingChange;
+
+  let indexOfCoin = 0;
+  while (remainingChange > 0 && indexOfCoin < coinDenominations.length) {
+    const coin = coinDenominations[indexOfCoin];
+    const numberOfCoins = Math.floor(remainingChange / coin.value);
+    coinCount[coin.name] = numberOfCoins;
+    remainingChange -= numberOfCoins * coin.value;
+    indexOfCoin++;
+  }
+
+  const change = Object.getOwnPropertyNames(coinCount)
+    .map(coinName => `${coinName}: ${coinCount[coinName]}`)
+    .join(`, `);
+
+  return change;
+};
+
 class VendingMachine {
   constructor(products, coins) {
     // these can be used anywhere within this class now
@@ -21,6 +50,25 @@ class VendingMachine {
     }
 
     // return this.productInventory[slot];
+
+    // dispense product with no change
+    if (this.productInventory[slot].price === payment) {
+      return `Dispensed: ${this.productInventory[slot].title}`;
+    }
+
+    if (this.productInventory[slot].price < payment) {
+      let price = this.productInventory[slot].price;
+
+      let totalChange = payment - price;
+
+      // *100 to convert it
+      let paymentChange = calCoinChange((payment - price) * 100);
+      console.log(paymentChange);
+
+      return `Dispensed: ${
+        this.productInventory[slot].title
+      } | Change: $${totalChange} (${paymentChange})`;
+    }
   }
 }
 

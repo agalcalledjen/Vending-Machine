@@ -8,62 +8,62 @@ describe('VendingMachine', () => {
 
     test.productInventory = {
       A1: {
-        title: 'kit-kat',
+        title: 'Pixy Stix',
         quantity: 3,
         price: 1.25
       },
       A2: {
-        title: 'coffee crisp',
+        title: 'Laffy Taffy',
         quantity: 2,
         price: 1.75
       },
       A3: {
-        title: 'twix',
+        title: 'Sweetarts',
         quantity: 5,
-        price: 2.0
+        price: 2.05
       },
       B1: {
-        title: 'sour patch kids',
+        title: 'Daim',
         quantity: 1,
         price: 1.5
       },
       B2: {
-        title: 'gummy bears',
+        title: 'Lion',
         quantity: 5,
         price: 1.75
       },
       B3: {
-        title: 'sour keys',
+        title: 'Double Decker',
         quantity: 0,
         price: 2.25
       },
       C1: {
-        title: 'nerds',
+        title: 'Nerds',
         quantity: 3,
         price: 1.75
       },
       C2: {
-        title: 'pop rocks',
+        title: 'Pop Rocks',
         quantity: 1,
         price: 1.25
       },
       C3: {
-        title: 'gob stoppers',
+        title: 'Gob Stoppers',
         quantity: 0,
         price: 2.75
       },
       D1: {
-        title: 'apple crisps',
+        title: 'Jackfruit Chips',
         quantity: 1,
         price: 2.95
       },
       D2: {
-        title: 'kit-kat',
+        title: 'Veggie Stix',
         quantity: 5,
         price: 1.85
       },
       D3: {
-        title: 'kit-kat',
+        title: 'Harvest Snaps',
         quantity: 2,
         price: 1.15
       }
@@ -78,7 +78,7 @@ describe('VendingMachine', () => {
       // we will pass in test.productInventory
       test.subject = new VendingMachine(test.productInventory);
 
-      test.product = test.productInventory;
+      // test.product = test.productInventory;
     });
 
     describe('when slot selection does not exist', () => {
@@ -91,12 +91,14 @@ describe('VendingMachine', () => {
 
     describe('when slot selection does exist', () => {
       beforeEach(() => {
-        test.slot = 'A1';
-        test.result = test.subject.querySlots(test.slot);
+        test.slot = 'B1';
+        // test.payment = 1.5;
+        // test.result = test.subject.querySlots(test.slot, test.payment);
+        result = test.subject;
       });
 
       it('should throw an error if invalid payment amount received', () => {
-        expect(() => test.subject.querySlots('A1', 1)).toThrow(
+        expect(() => test.subject.querySlots('B1', 1)).toThrow(
           'Invalid Payment Amount'
         );
       });
@@ -107,9 +109,19 @@ describe('VendingMachine', () => {
         );
       });
 
-      // it('should return a product', () => {
-      //   expect(test.result.title).toEqual(test.product[test.slot].title);
-      // });
+      it('should return a product with no change', () => {
+        expect(result.querySlots('B1', 1.5)).toEqual(
+          // test.subject[test.slot].title
+          'Dispensed: Daim'
+        );
+      });
+
+      it('should return a product with change', () => {
+        expect(result.querySlots('B1', 2.5)).toEqual(
+          // test.subject[test.slot].title
+          'Dispensed: Daim | Change: $1 (toonie: 0, loonie: 1)'
+        );
+      });
     });
   });
 });
