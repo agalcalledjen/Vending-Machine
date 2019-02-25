@@ -1,14 +1,26 @@
-const processData = require('./process-data');
-
 class VendingMachine {
-  constructor(data) {
-    this.productInventory = productInventory;
+  constructor(products, coins) {
     // these can be used anywhere within this class now
-    this.coinDrawer = coinDrawer;
+    this.productInventory = products;
+    this.coinDrawer = coins;
   }
 
-  querySlots(slot) {
-    return this.data[slot];
+  querySlots(slot, payment) {
+    if (!slot || !this.productInventory[slot]) {
+      throw 'Invalid Product Selection';
+    }
+
+    // invalid payment amount received
+    if (this.productInventory[slot].price > payment) {
+      throw 'Invalid Payment Amount';
+    }
+
+    // product is out of stock
+    if (this.productInventory[slot].quantity === 0) {
+      throw 'Product is out of stock.';
+    }
+
+    // return this.productInventory[slot];
   }
 }
 
