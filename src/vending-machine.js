@@ -1,37 +1,37 @@
-const coinDenominations = [
-  { name: 'toonie', value: 200 },
-  { name: 'loonie', value: 100 },
-  { name: 'quarter', value: 25 },
-  { name: 'dime', value: 10 },
-  { name: 'nickel', value: 5 }
-];
-
-const coinCount = {};
-
-const calCoinChange = remainingChange => {
-  remainingChange = remainingChange;
-
-  let indexOfCoin = 0;
-  while (remainingChange > 0 && indexOfCoin < coinDenominations.length) {
-    const coin = coinDenominations[indexOfCoin];
-    const numberOfCoins = Math.floor(remainingChange / coin.value);
-    coinCount[coin.name] = numberOfCoins;
-    remainingChange -= numberOfCoins * coin.value;
-    indexOfCoin++;
-  }
-
-  const change = Object.getOwnPropertyNames(coinCount)
-    .map(coinName => `${coinName}: ${coinCount[coinName]}`)
-    .join(`, `);
-
-  return change;
-};
-
 class VendingMachine {
   constructor(products, coins) {
     // these can be used anywhere within this class now
     this.productInventory = products;
     this.coinDrawer = coins;
+  }
+
+  calCoinChange(remainingChange) {
+    remainingChange = remainingChange;
+
+    const coinDenominations = [
+      { name: 'toonie', value: 200 },
+      { name: 'loonie', value: 100 },
+      { name: 'quarter', value: 25 },
+      { name: 'dime', value: 10 },
+      { name: 'nickel', value: 5 }
+    ];
+
+    const coinCount = {};
+
+    let indexOfCoin = 0;
+    while (remainingChange > 0 && indexOfCoin < coinDenominations.length) {
+      const coin = coinDenominations[indexOfCoin];
+      const numberOfCoins = Math.floor(remainingChange / coin.value);
+      coinCount[coin.name] = numberOfCoins;
+      remainingChange -= numberOfCoins * coin.value;
+      indexOfCoin++;
+    }
+
+    const change = Object.getOwnPropertyNames(coinCount)
+      .map(coinName => `${coinName}: ${coinCount[coinName]}`)
+      .join(`, `);
+
+    return change;
   }
 
   querySlots(slot, payment) {
@@ -62,7 +62,7 @@ class VendingMachine {
       let totalChange = payment - price;
 
       // *100 to convert it
-      let paymentChange = calCoinChange((payment - price) * 100);
+      let paymentChange = this.calCoinChange((payment - price) * 100);
       console.log(paymentChange);
 
       return `Dispensed: ${
