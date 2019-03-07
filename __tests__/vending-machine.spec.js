@@ -1,4 +1,5 @@
 const VendingMachine = require('../src/vending-machine');
+const dataProductInventory = require('./dataProductInventory.json');
 
 describe('VendingMachine', () => {
   let test;
@@ -6,68 +7,68 @@ describe('VendingMachine', () => {
   beforeEach(() => {
     test = {};
 
-    test.productInventory = {
-      A1: {
-        title: 'Pixy Stix',
-        quantity: 3,
-        price: 1.25
-      },
-      A2: {
-        title: 'Laffy Taffy',
-        quantity: 2,
-        price: 1.75
-      },
-      A3: {
-        title: 'Sweetarts',
-        quantity: 5,
-        price: 2.05
-      },
-      B1: {
-        title: 'Daim',
-        quantity: 1,
-        price: 1.5
-      },
-      B2: {
-        title: 'Lion',
-        quantity: 5,
-        price: 1.75
-      },
-      B3: {
-        title: 'Double Decker',
-        quantity: 0,
-        price: 2.25
-      },
-      C1: {
-        title: 'Nerds',
-        quantity: 3,
-        price: 1.75
-      },
-      C2: {
-        title: 'Pop Rocks',
-        quantity: 1,
-        price: 1.25
-      },
-      C3: {
-        title: 'Gob Stoppers',
-        quantity: 0,
-        price: 2.75
-      },
-      D1: {
-        title: 'Jackfruit Chips',
-        quantity: 1,
-        price: 2.95
-      },
-      D2: {
-        title: 'Veggie Stix',
-        quantity: 5,
-        price: 1.85
-      },
-      D3: {
-        title: 'Harvest Snaps',
-        quantity: 2,
-        price: 1.15
-      }
-    };
+    // test.productInventory = {
+    //   A1: {
+    //     title: 'Pixy Stix',
+    //     quantity: 3,
+    //     price: 1.25
+    //   },
+    //   A2: {
+    //     title: 'Laffy Taffy',
+    //     quantity: 2,
+    //     price: 1.75
+    //   },
+    //   A3: {
+    //     title: 'Sweetarts',
+    //     quantity: 5,
+    //     price: 2.05
+    //   },
+    //   B1: {
+    //     title: 'Daim',
+    //     quantity: 1,
+    //     price: 1.5
+    //   },
+    //   B2: {
+    //     title: 'Lion',
+    //     quantity: 5,
+    //     price: 1.75
+    //   },
+    //   B3: {
+    //     title: 'Double Decker',
+    //     quantity: 0,
+    //     price: 2.25
+    //   },
+    //   C1: {
+    //     title: 'Nerds',
+    //     quantity: 3,
+    //     price: 1.75
+    //   },
+    //   C2: {
+    //     title: 'Pop Rocks',
+    //     quantity: 1,
+    //     price: 1.25
+    //   },
+    //   C3: {
+    //     title: 'Gob Stoppers',
+    //     quantity: 0,
+    //     price: 2.75
+    //   },
+    //   D1: {
+    //     title: 'Jackfruit Chips',
+    //     quantity: 1,
+    //     price: 2.95
+    //   },
+    //   D2: {
+    //     title: 'Veggie Stix',
+    //     quantity: 5,
+    //     price: 1.85
+    //   },
+    //   D3: {
+    //     title: 'Harvest Snaps',
+    //     quantity: 2,
+    //     price: 1.15
+    //   }
+    // };
   });
 
   describe('Purchase a product', () => {
@@ -76,7 +77,8 @@ describe('VendingMachine', () => {
       // test.subject is a new instance of VendingMachine
       // and since VendingMachine requires an input of data
       // we will pass in test.productInventory
-      test.subject = new VendingMachine(test.productInventory);
+      // test.subject = new VendingMachine(test.productInventory);
+      test.subject = new VendingMachine(dataProductInventory);
 
       // test.product = test.productInventory;
     });
