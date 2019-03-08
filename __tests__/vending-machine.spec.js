@@ -10,14 +10,7 @@ describe('VendingMachine', () => {
 
   describe('Purchase a product', () => {
     beforeEach(() => {
-      // create an object called test.subject
-      // test.subject is a new instance of VendingMachine
-      // and since VendingMachine requires an input of data
-      // we will pass in test.productInventory
-      // test.subject = new VendingMachine(test.productInventory);
       test.subject = new VendingMachine(data.productInventory);
-
-      // test.product = test.productInventory;
     });
 
     describe('when slot selection does not exist', () => {
@@ -30,15 +23,11 @@ describe('VendingMachine', () => {
 
     describe('when slot selection does exist', () => {
       beforeEach(() => {
-        test.slot = 'B1';
-        // test.payment = 1.5;
-        // test.result = test.subject.querySlots(test.slot, test.payment);
         result = test.subject;
       });
 
       describe('when product is not in stock', () => {
         it('should throw an error', () => {
-          // expect(() => test.subject.querySlots('B3', 3)).toThrow(
           expect(() => result.querySlots('B3', 3)).toThrow(
             'Product is out of stock.'
           );
@@ -47,10 +36,8 @@ describe('VendingMachine', () => {
 
       describe('when product is in stock', () => {
         describe('when payment is invalid', () => {
-          // TODO: show remaining balance?
           it('should throw an error', () => {
-            // expect(() => test.subject.querySlots('B1', 1)).toThrow(
-            expect(() => result.querySlots(test.slot, 1)).toThrow(
+            expect(() => result.querySlots('B1', 1)).toThrow(
               'Invalid Payment Amount'
             );
           });
@@ -58,21 +45,17 @@ describe('VendingMachine', () => {
 
         describe('when payment is valid', () => {
           it('should return a product with no change for exact payment', () => {
-            expect(result.querySlots(test.slot, 1.5)).toEqual(
-              // test.subject[test.slot].title
-              'Dispensed: Daim'
-            );
+            expect(result.querySlots('B1', 1.5)).toEqual('Dispensed: Daim');
           });
 
           it('should return a product with change', () => {
-            expect(result.querySlots(test.slot, 2.5)).toEqual(
-              // test.subject[test.slot].title
-              'Dispensed: Daim | Change: $1 (toonie: 0, loonie: 1) | Quantity: 0'
+            expect(result.querySlots('C1', 2)).toEqual(
+              'Dispensed: Nerds | Change: $0.25 (toonie: 0, loonie: 0, quarter: 1) | Quantity: 2'
             );
           });
 
           it('should decrease quantity of product', () => {
-            expect(result.querySlots(test.slot, 2.5, 0)).toEqual(
+            expect(result.querySlots('B1', 2.5)).toEqual(
               'Dispensed: Daim | Change: $1 (toonie: 0, loonie: 1) | Quantity: 0'
             );
           });
@@ -96,25 +79,19 @@ describe('VendingMachine', () => {
 
     describe('when product does exist', () => {
       beforeEach(() => {
-        // test.title = 'Pixy Stix';
-        // test.quantity = 3;
-        // test.maxQuantity = 7;
-
         result = test.subject;
       });
 
       describe('when quantity is equal to max', () => {
         it('it should not restock', () => {
-          expect(() =>
-            // result.queryProducts(test.title, test.maxQuantity)
-            result.queryProducts('Pixy Stix')
-          ).toThrow('Product does not need to be restocked.');
+          expect(() => result.queryProducts('Pixy Stix')).toThrow(
+            'Product does not need to be restocked.'
+          );
         });
       });
 
       describe('when quantity is less than max', () => {
         it('it should restock to max', () => {
-          // expect(result.queryProducts(test.title, test.quantity)).toEqual(
           expect(result.queryProducts('Laffy Taffy')).toEqual(
             'Restocked: Laffy Taffy | Restock Quantity: 1'
           );
@@ -149,7 +126,6 @@ describe('VendingMachine', () => {
         });
 
         it('it should not refill', () => {
-          // expect(() => result.queryCoins(test.title, test.maxQuantity)).toThrow(
           expect(() => result.queryCoins(test.title)).toThrow(
             'Coin does not need to be refilled.'
           );
@@ -164,7 +140,6 @@ describe('VendingMachine', () => {
         });
 
         it('it should refill to max', () => {
-          // expect(result.queryCoins(test.title, test.quantity)).toEqual(
           expect(result.queryCoins(test.title)).toEqual(
             'Refilled: Loonies | Refill Quantity: 12'
           );

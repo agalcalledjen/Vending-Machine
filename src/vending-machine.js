@@ -1,6 +1,5 @@
 class VendingMachine {
   constructor(products, coins) {
-    // these can be used anywhere within this class now
     this.productInventory = products;
     this.coinDrawer = coins;
   }
@@ -17,7 +16,6 @@ class VendingMachine {
     ];
 
     const coinCount = {};
-
     let indexOfCoin = 0;
 
     while (remainingChange > 0 && indexOfCoin < coinDenominations.length) {
@@ -40,33 +38,24 @@ class VendingMachine {
       throw 'Invalid Product Selection';
     }
 
-    // invalid payment amount received
     if (this.productInventory[slot].price > payment) {
       throw 'Invalid Payment Amount';
     }
 
-    // product is out of stock
     if (this.productInventory[slot].quantity === 0) {
       throw 'Product is out of stock.';
     }
 
-    // return this.productInventory[slot];
-
-    // dispense product with no change
     if (this.productInventory[slot].price === payment) {
       return `Dispensed: ${this.productInventory[slot].title}`;
     }
 
-    // dispense product with change
     if (this.productInventory[slot].price < payment) {
       let product = this.productInventory[slot].title;
       let price = this.productInventory[slot].price;
       let quantity = this.productInventory[slot].quantity;
       --quantity;
-
       let totalChange = payment - price;
-
-      // *100 to convert it
       let paymentChange = this.calCoinChange((payment - price) * 100);
 
       console.log(
@@ -89,13 +78,11 @@ class VendingMachine {
     if (!filteredProduct) {
       throw 'Invalid Product';
     }
-    ////
-    // console.log('TITLE---', title);
+
     const productTitle = filteredProduct[1].title;
     const productQuantity = filteredProduct[1].quantity;
 
     if (productQuantity == productMax) {
-      // if (quantity == productQuantity) {
       throw 'Product does not need to be restocked.';
     }
 
@@ -110,103 +97,12 @@ class VendingMachine {
 
     return `Restocked: ${productTitle} | Restock Quantity: ${restockProduct -
       productQuantity}`;
-
-    // do not use
-    // inventory.map(product => {
-    //   console.log(product);
-    //   let productTitle = product[1].title;
-    //   // console.log('PRODUCT TITLE---', productTitle);
-    //   let productQuantity = product[1].quantity;
-    //   // console.log('PRODUCT QUANTITY---', productQuantity);
-
-    //   if (title !== productTitle) {
-    //     throw 'Invalid Product';
-    //   }
-
-    //   if (title == productTitle && productQuantity == productMax) {
-    //     // if (quantity == productQuantity) {
-    //     throw 'Product does not need to be restocked.';
-    //   }
-
-    //   // if (title === productTitle && quantity < productMax) {
-    //   if (productQuantity < productMax) {
-    //     restockProduct = productMax;
-    //   }
-
-    //   console.log(
-    //     `Restocked: ${productTitle} | Restock Quantity: ${restockProduct -
-    //       productQuantity}`
-    //   );
-
-    //   return `Restocked: ${productTitle} | Restock Quantity: ${restockProduct -
-    //     productQuantity}`;
-    // });
-
-    //////////////
-    // for (product in inventory) {
-    // for (product in inventory) {
-    //   console.log('TITLE---', title);
-    //   console.log('INVENTORY---', inventory);
-
-    //   console.log('PRODUCT________', product);
-    //   const productname = product.title;
-    //   console.log('-------------------', productname);
-
-    //   const products = inventory[product];
-    //   console.log('PRODUCTS---', products);
-
-    //   const productTitle = products[1].title;
-    //   console.log('PRODUCT TITLE---', productTitle);
-
-    //   const productQuantity = products[1].quantity;
-    //   console.log('PRODUCT QUANTITY---', productQuantity);
-
-    //   if (title !== productTitle) {
-    //     throw 'Invalid Product';
-    //   }
-
-    //   if (quantity === productMax) {
-    //     // console.log(items[1].quantity);
-    //     // console.log('itemTitle', productTitle);
-    //     // console.log('title', title);
-    //     throw 'Product does not need to be restocked.';
-    //   }
-
-    //   // product += product;
-    // }
-    ////////
   }
 
   queryCoins(title) {
     let refillCoin = 0;
     const coinMax = 25;
     const coinDrawer = Object.entries(this.coinDrawer);
-    console.log('COIN DRAWER', this.coinDrawer);
-
-    ////
-    console.log('TITLE---', title);
-
-    // coinDrawer.map(coin => {
-    //   let coinTitle = coin[1].title;
-    //   // console.log('COIN TITLE---', coinTitle);
-    //   let coinQuantity = coin[1].quantity;
-    //   // console.log('COIN QUANTITY---', coinQuantity);
-
-    //   // if (title !== coinTitle) {
-    //   //   throw 'Invalid Product';
-    //   // }
-
-    //   if (title == coinTitle && coinQuantity == coinMax) {
-    //     throw 'Coin does not need to be refilled.';
-    //   }
-
-    //   if (title == coinTitle && coinQuantity < coinMax) {
-    //     coinQuantity = coinMax;
-    //   }
-
-    //   refillCoin += coinQuantity;
-    // });
-
     const filteredCoin = coinDrawer.find(coin => coin[1].title === title);
 
     if (!filteredCoin) {
@@ -214,12 +110,9 @@ class VendingMachine {
     }
 
     const coinTitle = filteredCoin[1].title;
-    // console.log('COIN TITLE---', coinTitle);
     const coinQuantity = filteredCoin[1].quantity;
-    // console.log('COIN QUANTITY---', coinQuantity);
 
     if (coinQuantity == coinMax) {
-      // if (quantity == productQuantity) {
       throw 'Coin does not need to be refilled.';
     }
 

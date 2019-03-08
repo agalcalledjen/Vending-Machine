@@ -8,8 +8,6 @@ A coding interview task that includes an usable vending machine without an inter
 
 ## Installation
 
-**NOTE: Yarn is recommended.**
-
 Clone this project.
 
 ```
