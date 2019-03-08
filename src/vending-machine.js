@@ -58,10 +58,6 @@ class VendingMachine {
       let totalChange = payment - price;
       let paymentChange = this.calCoinChange((payment - price) * 100);
 
-      console.log(
-        `Dispensed: ${product} | Change: $${totalChange} (${paymentChange}) | Quantity: ${quantity}`
-      );
-
       return `Dispensed: ${product} | Change: $${totalChange} (${paymentChange}) | Quantity: ${quantity}`;
     }
   }
@@ -90,11 +86,6 @@ class VendingMachine {
       restockProduct = productMax;
     }
 
-    console.log(
-      `Restocked: ${productTitle} | Restock Quantity: ${restockProduct -
-        productQuantity}`
-    );
-
     return `Restocked: ${productTitle} | Restock Quantity: ${restockProduct -
       productQuantity}`;
   }
@@ -119,10 +110,6 @@ class VendingMachine {
     if (coinQuantity < coinMax) {
       refillCoin = coinMax;
     }
-
-    console.log(
-      `Refilled: ${coinTitle} | Refill Quantity: ${refillCoin - coinQuantity}`
-    );
 
     return `Refilled: ${coinTitle} | Refill Quantity: ${refillCoin -
       coinQuantity}`;

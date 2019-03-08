@@ -63,6 +63,6 @@ Below are the subsequent learning outcomes:
 
 ## Author
 
-[Jennifer Lam](https://github.com/nejmal), App Developer student at [RED Academy](https://redacademy.com/vancouver/).
+[Jennifer Lam](https://github.com/nejmal), Full-Stack Developer student at [RED Academy](https://redacademy.com/vancouver/).
 
 Let's connect on [LinkedIn](https://www.linkedin.com/in/jenniferlam-/).
