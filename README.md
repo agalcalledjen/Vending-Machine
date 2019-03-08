@@ -1,6 +1,6 @@
 # Vending Machine
 
-ADP(Project 3): Coding interview task that includes an usable vending machine without an interface in Javascript. It dispenses, prints and restocks the vending machine inventory. In addition, it refills and returns coins.
+A coding interview task that includes an usable vending machine without an interface in Javascript. It dispenses, prints and restocks the vending machine inventory. In addition, it refills and returns coins.
 
 ---
 
@@ -55,7 +55,9 @@ This is a project produced from the following lessons from Week 7:
 Below are the subsequent learning outcomes:
 
 - Red, Green, Refactor (TDD).
--
+- TDD encourages code to be easier to maintain and refractor.
+  - Also, makes it easier and more efficient for team work.
+- Additional learning required.
 
 ---
 

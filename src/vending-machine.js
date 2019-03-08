@@ -82,35 +82,65 @@ class VendingMachine {
     const productMax = 7;
     const inventory = Object.entries(this.productInventory);
 
+    const filteredProduct = inventory.find(
+      product => product[1].title === title
+    );
+
+    if (!filteredProduct) {
+      throw 'Invalid Product';
+    }
     ////
     // console.log('TITLE---', title);
+    const productTitle = filteredProduct[1].title;
+    const productQuantity = filteredProduct[1].quantity;
 
-    inventory.map(product => {
-      let productTitle = product[1].title;
-      // console.log('PRODUCT TITLE---', productTitle);
-      let productQuantity = product[1].quantity;
-      // console.log('PRODUCT QUANTITY---', productQuantity);
+    if (productQuantity == productMax) {
+      // if (quantity == productQuantity) {
+      throw 'Product does not need to be restocked.';
+    }
 
-      if (title !== productTitle) {
-        throw 'Invalid Product';
-      }
+    if (productQuantity < productMax) {
+      restockProduct = productMax;
+    }
 
-      if (title == productTitle && productQuantity == productMax) {
-        // if (quantity == productQuantity) {
-        throw 'Product does not need to be restocked.';
-      }
+    console.log(
+      `Restocked: ${productTitle} | Restock Quantity: ${restockProduct -
+        productQuantity}`
+    );
 
-      // if (title === productTitle && quantity < productMax) {
-      if (productQuantity < productMax) {
-        restockProduct = productMax - productQuantity;
+    return `Restocked: ${productTitle} | Restock Quantity: ${restockProduct -
+      productQuantity}`;
 
-        console.log(
-          `Restocked: ${productTitle} | Restock Quantity: ${restockProduct}`
-        );
+    // do not use
+    // inventory.map(product => {
+    //   console.log(product);
+    //   let productTitle = product[1].title;
+    //   // console.log('PRODUCT TITLE---', productTitle);
+    //   let productQuantity = product[1].quantity;
+    //   // console.log('PRODUCT QUANTITY---', productQuantity);
 
-        return `Restocked: ${productTitle} | Restock Quantity: ${restockProduct}`;
-      }
-    });
+    //   if (title !== productTitle) {
+    //     throw 'Invalid Product';
+    //   }
+
+    //   if (title == productTitle && productQuantity == productMax) {
+    //     // if (quantity == productQuantity) {
+    //     throw 'Product does not need to be restocked.';
+    //   }
+
+    //   // if (title === productTitle && quantity < productMax) {
+    //   if (productQuantity < productMax) {
+    //     restockProduct = productMax;
+    //   }
+
+    //   console.log(
+    //     `Restocked: ${productTitle} | Restock Quantity: ${restockProduct -
+    //       productQuantity}`
+    //   );
+
+    //   return `Restocked: ${productTitle} | Restock Quantity: ${restockProduct -
+    //     productQuantity}`;
+    // });
 
     //////////////
     // for (product in inventory) {
@@ -156,28 +186,53 @@ class VendingMachine {
     ////
     console.log('TITLE---', title);
 
-    coinDrawer.map(coin => {
-      let coinTitle = coin[1].title;
-      // console.log('COIN TITLE---', coinTitle);
-      let coinQuantity = coin[1].quantity;
-      // console.log('COIN QUANTITY---', coinQuantity);
+    // coinDrawer.map(coin => {
+    //   let coinTitle = coin[1].title;
+    //   // console.log('COIN TITLE---', coinTitle);
+    //   let coinQuantity = coin[1].quantity;
+    //   // console.log('COIN QUANTITY---', coinQuantity);
 
-      // if (title !== coinTitle) {
-      //   throw 'Invalid Product';
-      // }
+    //   // if (title !== coinTitle) {
+    //   //   throw 'Invalid Product';
+    //   // }
 
-      if (title == coinTitle && coinQuantity == coinMax) {
-        throw 'Coin does not need to be refilled.';
-      }
+    //   if (title == coinTitle && coinQuantity == coinMax) {
+    //     throw 'Coin does not need to be refilled.';
+    //   }
 
-      if (title == coinTitle && coinQuantity < coinMax) {
-        refillCoin = coinMax - coinQuantity;
+    //   if (title == coinTitle && coinQuantity < coinMax) {
+    //     coinQuantity = coinMax;
+    //   }
 
-        console.log(`Refilled: ${coinTitle} | Refill Quantity: ${refillCoin}`);
+    //   refillCoin += coinQuantity;
+    // });
 
-        return `Refilled: ${coinTitle} | Refill Quantity: ${refillCoin}`;
-      }
-    });
+    const filteredCoin = coinDrawer.find(coin => coin[1].title === title);
+
+    if (!filteredCoin) {
+      throw 'Invalid Coin';
+    }
+
+    const coinTitle = filteredCoin[1].title;
+    // console.log('COIN TITLE---', coinTitle);
+    const coinQuantity = filteredCoin[1].quantity;
+    // console.log('COIN QUANTITY---', coinQuantity);
+
+    if (coinQuantity == coinMax) {
+      // if (quantity == productQuantity) {
+      throw 'Coin does not need to be refilled.';
+    }
+
+    if (coinQuantity < coinMax) {
+      refillCoin = coinMax;
+    }
+
+    console.log(
+      `Refilled: ${coinTitle} | Refill Quantity: ${refillCoin - coinQuantity}`
+    );
+
+    return `Refilled: ${coinTitle} | Refill Quantity: ${refillCoin -
+      coinQuantity}`;
   }
 }
 
