@@ -1,5 +1,5 @@
 const VendingMachine = require('../src/vending-machine');
-const dataProductInventory = require('./dataProductInventory.json');
+const data = require('./data.json');
 
 describe('VendingMachine', () => {
   let test;
@@ -15,7 +15,7 @@ describe('VendingMachine', () => {
       // and since VendingMachine requires an input of data
       // we will pass in test.productInventory
       // test.subject = new VendingMachine(test.productInventory);
-      test.subject = new VendingMachine(dataProductInventory);
+      test.subject = new VendingMachine(data.productInventory);
 
       // test.product = test.productInventory;
     });
@@ -83,7 +83,7 @@ describe('VendingMachine', () => {
 
   describe('Restock a product', () => {
     beforeEach(() => {
-      test.subject = new VendingMachine(dataProductInventory);
+      test.subject = new VendingMachine(data.productInventory);
     });
 
     describe('when product does not exist', () => {
@@ -94,17 +94,71 @@ describe('VendingMachine', () => {
       });
     });
 
-    // describe('when product does exist', () => {
-    //   beforeEach(() => {
-    //     test.title = 'Laffy Taffy';
-    //     result = test.subject;
-    //   });
+    describe('when product does exist', () => {
+      beforeEach(() => {
+        test.title = 'Pixy Stix';
+        // test.quantity = 3;
+        // test.maxQuantity = 7;
 
-    //   describe('when product ', () => {
-    //     it('', () => {
-    //       expect(() => result.querySlots('B3', 3)).toThrow('');
-    //     });
-    //   });
-    // });
+        result = test.subject;
+      });
+
+      describe('when quantity is equal to max', () => {
+        it('it should not restock', () => {
+          expect(() =>
+            // result.queryProducts(test.title, test.maxQuantity)
+            result.queryProducts(test.title)
+          ).toThrow('Product does not need to be restocked.');
+        });
+      });
+
+      describe('when quantity is less than max', () => {
+        it('it should restock to max', () => {
+          // expect(result.queryProducts(test.title, test.quantity)).toEqual(
+          expect(result.queryProducts(test.title)).toEqual(
+            'Restocked: Pixy Stix | Restock Quantity: 4'
+          );
+        });
+      });
+    });
+  });
+
+  describe('Refill coin drawer', () => {
+    beforeEach(() => {
+      test.subject = new VendingMachine(data.productInventory, data.coinDrawer);
+    });
+
+    describe('when quantity is equal to max', () => {
+      beforeEach(() => {
+        test.title = 'Quarters';
+        // test.quantity = 13;
+        // test.maxQuantity = 25;
+
+        result = test.subject;
+      });
+
+      it('it should not refill', () => {
+        // expect(() => result.queryCoins(test.title, test.maxQuantity)).toThrow(
+        expect(() => result.queryCoins(test.title)).toThrow(
+          'Coin does not need to be refilled.'
+        );
+      });
+    });
+
+    describe('when quantity is less than max', () => {
+      beforeEach(() => {
+        test.title = 'Toonies';
+        test.quantity = 13;
+
+        result = test.subject;
+      });
+
+      it('it should refill to max', () => {
+        // expect(result.queryCoins(test.title, test.quantity)).toEqual(
+        expect(result.queryCoins(test.title)).toEqual(
+          'Refilled: Toonies | Refill Quantity: 12'
+        );
+      });
+    });
   });
 });

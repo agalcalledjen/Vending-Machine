@@ -1,0 +1,91 @@
+{
+  "productInventory": {
+    "A1": {
+      "title": "Pixy Stix",
+      "quantity": 7,
+      "price": 1.25
+    },
+    "A2": {
+      "title": "Laffy Taffy",
+      "quantity": 6,
+      "price": 1.75
+    },
+    "A3": {
+      "title": "Sweetarts",
+      "quantity": 7,
+      "price": 2.05
+    },
+    "B1": {
+      "title": "Daim",
+      "quantity": 1,
+      "price": 1.5
+    },
+    "B2": {
+      "title": "Lion",
+      "quantity": 5,
+      "price": 1.75
+    },
+    "B3": {
+      "title": "Double Decker",
+      "quantity": 0,
+      "price": 2.25
+    },
+    "C1": {
+      "title": "Nerds",
+      "quantity": 3,
+      "price": 1.75
+    },
+    "C2": {
+      "title": "Pop Rocks",
+      "quantity": 1,
+      "price": 1.25
+    },
+    "C3": {
+      "title": "Gob Stoppers",
+      "quantity": 0,
+      "price": 2.75
+    },
+    "D1": {
+      "title": "Jackfruit Chips",
+      "quantity": 1,
+      "price": 2.95
+    },
+    "D2": {
+      "title": "Veggie Stix",
+      "quantity": 5,
+      "price": 1.85
+    },
+    "D3": {
+      "title": "Harvest Snaps",
+      "quantity": 2,
+      "price": 1.15
+    }
+  },
+  "coinDrawer": {
+    "Toonies": {
+      "title": "Toonies",
+      "quantity": 25,
+      "value": 2
+    },
+    "Loonies": {
+      "title": "Loonies",
+      "quantity": 13,
+      "value": 1
+    },
+    "Quarters": {
+      "title": "Quarters",
+      "quantity": 25,
+      "price": 0.25
+    },
+    "Dimes": {
+      "title": "Dimes",
+      "quantity": 1,
+      "value": 0.1
+    },
+    "Nickels": {
+      "title": "Nickels",
+      "quantity": 5,
+      "value": 0.05
+    }
+  }
+}

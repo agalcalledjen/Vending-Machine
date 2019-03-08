@@ -70,12 +70,7 @@ class VendingMachine {
       let paymentChange = this.calCoinChange((payment - price) * 100);
 
       console.log(
-        'PRODUCT:',
-        product,
-        'CHANGE:',
-        paymentChange,
-        'QUANTITY:',
-        quantity
+        `Dispensed: ${product} | Change: $${totalChange} (${paymentChange}) | Quantity: ${quantity}`
       );
 
       return `Dispensed: ${product} | Change: $${totalChange} (${paymentChange}) | Quantity: ${quantity}`;
@@ -84,36 +79,105 @@ class VendingMachine {
 
   queryProducts(title) {
     let restockProduct = 0;
+    const productMax = 7;
     const inventory = Object.entries(this.productInventory);
 
-    let productTitle = '';
-    productTitle = inventory.find(product => product.title === productTitle);
+    ////
+    // console.log('TITLE---', title);
 
-    if (!title || !productTitle) {
-      throw 'Invalid Product';
-    }
+    inventory.map(product => {
+      let productTitle = product[1].title;
+      // console.log('PRODUCT TITLE---', productTitle);
+      let productQuantity = product[1].quantity;
+      // console.log('PRODUCT QUANTITY---', productQuantity);
 
-    // if (!slot || !this.productInventory[slot]) {
-    //   throw 'Invalid Product Selection';
-    // }
+      if (title !== productTitle) {
+        throw 'Invalid Product';
+      }
 
+      if (title == productTitle && productQuantity == productMax) {
+        // if (quantity == productQuantity) {
+        throw 'Product does not need to be restocked.';
+      }
+
+      // if (title === productTitle && quantity < productMax) {
+      if (productQuantity < productMax) {
+        restockProduct = productMax - productQuantity;
+
+        console.log(
+          `Restocked: ${productTitle} | Restock Quantity: ${restockProduct}`
+        );
+
+        return `Restocked: ${productTitle} | Restock Quantity: ${restockProduct}`;
+      }
+    });
+
+    //////////////
     // for (product in inventory) {
+    // for (product in inventory) {
+    //   console.log('TITLE---', title);
+    //   console.log('INVENTORY---', inventory);
+
+    //   console.log('PRODUCT________', product);
+    //   const productname = product.title;
+    //   console.log('-------------------', productname);
+
     //   const products = inventory[product];
-    //   // console.log(products[1].title);
+    //   console.log('PRODUCTS---', products);
+
     //   const productTitle = products[1].title;
+    //   console.log('PRODUCT TITLE---', productTitle);
+
     //   const productQuantity = products[1].quantity;
+    //   console.log('PRODUCT QUANTITY---', productQuantity);
 
-    //   // if(productTitle === title){
-    //   //   console.log(productQuantity);
-    //   // }
+    //   if (title !== productTitle) {
+    //     throw 'Invalid Product';
+    //   }
 
-    //   return restockProduct;
-    //   // product = product;
+    //   if (quantity === productMax) {
+    //     // console.log(items[1].quantity);
+    //     // console.log('itemTitle', productTitle);
+    //     // console.log('title', title);
+    //     throw 'Product does not need to be restocked.';
+    //   }
+
+    //   // product += product;
     // }
+    ////////
+  }
 
-    // console.log('Product', product);
+  queryCoins(title) {
+    let refillCoin = 0;
+    const coinMax = 25;
+    const coinDrawer = Object.entries(this.coinDrawer);
+    console.log('COIN DRAWER', this.coinDrawer);
 
-    return productTitle;
+    ////
+    console.log('TITLE---', title);
+
+    coinDrawer.map(coin => {
+      let coinTitle = coin[1].title;
+      // console.log('COIN TITLE---', coinTitle);
+      let coinQuantity = coin[1].quantity;
+      // console.log('COIN QUANTITY---', coinQuantity);
+
+      // if (title !== coinTitle) {
+      //   throw 'Invalid Product';
+      // }
+
+      if (title == coinTitle && coinQuantity == coinMax) {
+        throw 'Coin does not need to be refilled.';
+      }
+
+      if (title == coinTitle && coinQuantity < coinMax) {
+        refillCoin = coinMax - coinQuantity;
+
+        console.log(`Refilled: ${coinTitle} | Refill Quantity: ${refillCoin}`);
+
+        return `Refilled: ${coinTitle} | Refill Quantity: ${refillCoin}`;
+      }
+    });
   }
 }
 
