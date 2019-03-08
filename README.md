@@ -57,7 +57,7 @@ Below are the subsequent learning outcomes:
 - Red, Green, Refactor (TDD).
 - TDD encourages code to be easier to maintain and refractor.
   - Also, makes it easier and more efficient for team work.
-- Additional learning required.
+- Additional learning and practice required.
 
 ---
 
