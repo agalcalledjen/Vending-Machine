@@ -1,4 +1,4 @@
-# Vending Machine
+# Vending Machine 🍫🍬
 
 A coding interview task that includes an usable vending machine without an interface in Javascript. It dispenses, prints and restocks the vending machine inventory. In addition, it refills and returns coins.
 
