@@ -26,7 +26,7 @@ describe('VendingMachine', () => {
         result = test.subject;
       });
 
-      describe('when product is not in stock', () => {
+      describe('but product is not in stock', () => {
         it('should throw an error', () => {
           expect(() => result.querySlots('B3', 3)).toThrow(
             'Product is out of stock.'
@@ -34,8 +34,8 @@ describe('VendingMachine', () => {
         });
       });
 
-      describe('when product is in stock', () => {
-        describe('when payment is invalid', () => {
+      describe('and product is in stock', () => {
+        describe('but payment is invalid', () => {
           it('should throw an error', () => {
             expect(() => result.querySlots('B1', 1)).toThrow(
               'Invalid Payment Amount'
@@ -43,7 +43,7 @@ describe('VendingMachine', () => {
           });
         });
 
-        describe('when payment is valid', () => {
+        describe('and payment is valid', () => {
           it('should return a product with no change for exact payment', () => {
             expect(result.querySlots('B1', 1.5)).toEqual('Dispensed: Daim');
           });
@@ -82,7 +82,7 @@ describe('VendingMachine', () => {
         result = test.subject;
       });
 
-      describe('when quantity is equal to max', () => {
+      describe('and quantity is equal to max', () => {
         it('it should not restock', () => {
           expect(() => result.queryProducts('Pixy Stix')).toThrow(
             'Product does not need to be restocked.'
@@ -90,7 +90,7 @@ describe('VendingMachine', () => {
         });
       });
 
-      describe('when quantity is less than max', () => {
+      describe('and quantity is less than max', () => {
         it('it should restock to max', () => {
           expect(result.queryProducts('Laffy Taffy')).toEqual(
             'Restocked: Laffy Taffy | Restock Quantity: 1'
@@ -118,7 +118,7 @@ describe('VendingMachine', () => {
         result = test.subject;
       });
 
-      describe('when quantity is equal to max', () => {
+      describe('and quantity is equal to max', () => {
         beforeEach(() => {
           test.title = 'Quarters';
 
@@ -132,7 +132,7 @@ describe('VendingMachine', () => {
         });
       });
 
-      describe('when quantity is less than max', () => {
+      describe('and quantity is less than max', () => {
         beforeEach(() => {
           test.title = 'Loonies';
 
