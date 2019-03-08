@@ -4,6 +4,8 @@ A coding interview task that includes an usable vending machine without an inter
 
 ---
 
+## ![Image of Vending Machine](https://github.com/nejmal/Vending-Machine/blob/master/vending-machine.png)
+
 ---
 
 ## Installation
