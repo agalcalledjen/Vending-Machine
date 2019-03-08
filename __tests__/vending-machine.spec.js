@@ -6,69 +6,6 @@ describe('VendingMachine', () => {
 
   beforeEach(() => {
     test = {};
-
-    // test.productInventory = {
-    //   A1: {
-    //     title: 'Pixy Stix',
-    //     quantity: 3,
-    //     price: 1.25
-    //   },
-    //   A2: {
-    //     title: 'Laffy Taffy',
-    //     quantity: 2,
-    //     price: 1.75
-    //   },
-    //   A3: {
-    //     title: 'Sweetarts',
-    //     quantity: 5,
-    //     price: 2.05
-    //   },
-    //   B1: {
-    //     title: 'Daim',
-    //     quantity: 1,
-    //     price: 1.5
-    //   },
-    //   B2: {
-    //     title: 'Lion',
-    //     quantity: 5,
-    //     price: 1.75
-    //   },
-    //   B3: {
-    //     title: 'Double Decker',
-    //     quantity: 0,
-    //     price: 2.25
-    //   },
-    //   C1: {
-    //     title: 'Nerds',
-    //     quantity: 3,
-    //     price: 1.75
-    //   },
-    //   C2: {
-    //     title: 'Pop Rocks',
-    //     quantity: 1,
-    //     price: 1.25
-    //   },
-    //   C3: {
-    //     title: 'Gob Stoppers',
-    //     quantity: 0,
-    //     price: 2.75
-    //   },
-    //   D1: {
-    //     title: 'Jackfruit Chips',
-    //     quantity: 1,
-    //     price: 2.95
-    //   },
-    //   D2: {
-    //     title: 'Veggie Stix',
-    //     quantity: 5,
-    //     price: 1.85
-    //   },
-    //   D3: {
-    //     title: 'Harvest Snaps',
-    //     quantity: 2,
-    //     price: 1.15
-    //   }
-    // };
   });
 
   describe('Purchase a product', () => {
@@ -99,31 +36,75 @@ describe('VendingMachine', () => {
         result = test.subject;
       });
 
-      it('should throw an error if invalid payment amount received', () => {
-        expect(() => test.subject.querySlots('B1', 1)).toThrow(
-          'Invalid Payment Amount'
-        );
+      describe('when product is not in stock', () => {
+        it('should throw an error', () => {
+          // expect(() => test.subject.querySlots('B3', 3)).toThrow(
+          expect(() => result.querySlots('B3', 3)).toThrow(
+            'Product is out of stock.'
+          );
+        });
       });
 
-      it('should throw an error if product is out of stock', () => {
-        expect(() => test.subject.querySlots('B3', 3)).toThrow(
-          'Product is out of stock.'
-        );
-      });
+      describe('when product is in stock', () => {
+        describe('when payment is invalid', () => {
+          // TODO: show remaining balance?
+          it('should throw an error', () => {
+            // expect(() => test.subject.querySlots('B1', 1)).toThrow(
+            expect(() => result.querySlots(test.slot, 1)).toThrow(
+              'Invalid Payment Amount'
+            );
+          });
+        });
 
-      it('should return a product with no change', () => {
-        expect(result.querySlots('B1', 1.5)).toEqual(
-          // test.subject[test.slot].title
-          'Dispensed: Daim'
-        );
-      });
+        describe('when payment is valid', () => {
+          it('should return a product with no change for exact payment', () => {
+            expect(result.querySlots(test.slot, 1.5)).toEqual(
+              // test.subject[test.slot].title
+              'Dispensed: Daim'
+            );
+          });
 
-      it('should return a product with change', () => {
-        expect(result.querySlots('B1', 2.5)).toEqual(
-          // test.subject[test.slot].title
-          'Dispensed: Daim | Change: $1 (toonie: 0, loonie: 1)'
+          it('should return a product with change', () => {
+            expect(result.querySlots(test.slot, 2.5)).toEqual(
+              // test.subject[test.slot].title
+              'Dispensed: Daim | Change: $1 (toonie: 0, loonie: 1) | Quantity: 0'
+            );
+          });
+
+          it('should decrease quantity of product', () => {
+            expect(result.querySlots(test.slot, 2.5, 0)).toEqual(
+              'Dispensed: Daim | Change: $1 (toonie: 0, loonie: 1) | Quantity: 0'
+            );
+          });
+        });
+      });
+    });
+  });
+
+  describe('Restock a product', () => {
+    beforeEach(() => {
+      test.subject = new VendingMachine(dataProductInventory);
+    });
+
+    describe('when product does not exist', () => {
+      it('should throw an error', () => {
+        expect(() => test.subject.queryProducts('Ring Pop')).toThrow(
+          'Invalid Product'
         );
       });
     });
+
+    // describe('when product does exist', () => {
+    //   beforeEach(() => {
+    //     test.title = 'Laffy Taffy';
+    //     result = test.subject;
+    //   });
+
+    //   describe('when product ', () => {
+    //     it('', () => {
+    //       expect(() => result.querySlots('B3', 3)).toThrow('');
+    //     });
+    //   });
+    // });
   });
 });

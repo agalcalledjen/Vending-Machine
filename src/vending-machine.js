@@ -19,6 +19,7 @@ class VendingMachine {
     const coinCount = {};
 
     let indexOfCoin = 0;
+
     while (remainingChange > 0 && indexOfCoin < coinDenominations.length) {
       const coin = coinDenominations[indexOfCoin];
       const numberOfCoins = Math.floor(remainingChange / coin.value);
@@ -56,19 +57,63 @@ class VendingMachine {
       return `Dispensed: ${this.productInventory[slot].title}`;
     }
 
+    // dispense product with change
     if (this.productInventory[slot].price < payment) {
+      let product = this.productInventory[slot].title;
       let price = this.productInventory[slot].price;
+      let quantity = this.productInventory[slot].quantity;
+      --quantity;
 
       let totalChange = payment - price;
 
       // *100 to convert it
       let paymentChange = this.calCoinChange((payment - price) * 100);
-      console.log(paymentChange);
 
-      return `Dispensed: ${
-        this.productInventory[slot].title
-      } | Change: $${totalChange} (${paymentChange})`;
+      console.log(
+        'PRODUCT:',
+        product,
+        'CHANGE:',
+        paymentChange,
+        'QUANTITY:',
+        quantity
+      );
+
+      return `Dispensed: ${product} | Change: $${totalChange} (${paymentChange}) | Quantity: ${quantity}`;
     }
+  }
+
+  queryProducts(title) {
+    let restockProduct = 0;
+    const inventory = Object.entries(this.productInventory);
+
+    let productTitle = '';
+    productTitle = inventory.find(product => product.title === productTitle);
+
+    if (!title || !productTitle) {
+      throw 'Invalid Product';
+    }
+
+    // if (!slot || !this.productInventory[slot]) {
+    //   throw 'Invalid Product Selection';
+    // }
+
+    // for (product in inventory) {
+    //   const products = inventory[product];
+    //   // console.log(products[1].title);
+    //   const productTitle = products[1].title;
+    //   const productQuantity = products[1].quantity;
+
+    //   // if(productTitle === title){
+    //   //   console.log(productQuantity);
+    //   // }
+
+    //   return restockProduct;
+    //   // product = product;
+    // }
+
+    // console.log('Product', product);
+
+    return productTitle;
   }
 }
 
